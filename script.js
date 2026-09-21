@@ -33,10 +33,13 @@ const progressTrack = document.querySelector(".progress-track");
 
 const timerDurationMinutes = 20;
 const timerDurationSeconds = timerDurationMinutes * 60;
+const totalPracticeSecondsKey = "totalPracticeSeconds";
 
 let totalSeconds = timerDurationSeconds;
 
 let timerInterval = null;
+let timerState = "idle";
+let timerAudioContext = null;
 
 
 function updateTimerDisplay() {
@@ -54,13 +57,120 @@ function updateTimerDisplay() {
 }
 
 
+function updateTimerButtonStates() {
+
+    startTimerButton.classList.toggle("is-active", timerState === "running");
+    pauseTimerButton.classList.toggle("is-active", timerState === "paused");
+}
+
+
+function prepareTimerSound() {
+
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+    if (!AudioContextClass) {
+        return;
+    }
+
+    if (timerAudioContext === null) {
+        timerAudioContext = new AudioContextClass();
+    }
+
+    if (timerAudioContext.state === "suspended") {
+        timerAudioContext.resume().catch(function () {});
+    }
+}
+
+
+function playTimerCompleteSound() {
+
+    if (timerAudioContext === null) {
+        return;
+    }
+
+    function playDing() {
+
+        const now = timerAudioContext.currentTime;
+        const oscillator = timerAudioContext.createOscillator();
+        const gain = timerAudioContext.createGain();
+
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(1046.5, now);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
+
+        oscillator.connect(gain);
+        gain.connect(timerAudioContext.destination);
+        oscillator.start(now);
+        oscillator.stop(now + 0.7);
+    }
+
+    if (timerAudioContext.state === "running") {
+        playDing();
+    } else {
+        timerAudioContext.resume().then(playDing).catch(function () {});
+    }
+}
+
+
 function updatePracticeDuration() {
 
     const completedSessions = Number(localStorage.getItem("completedTimerSessions")) || 0;
-    const totalMinutes = completedSessions * timerDurationMinutes;
+    const totalPracticeSeconds = getTotalPracticeSeconds();
 
-    totalPracticeDuration.textContent = `${totalMinutes} 分钟`;
+    totalPracticeDuration.textContent = formatPracticeDuration(totalPracticeSeconds);
     completedTimerCount.textContent = `已完成 ${completedSessions} 次倒计时`;
+}
+
+
+function getTotalPracticeSeconds() {
+
+    const savedValue = localStorage.getItem(totalPracticeSecondsKey);
+    const savedSeconds = Number(savedValue);
+
+    if (savedValue !== null && Number.isFinite(savedSeconds) && savedSeconds >= 0) {
+        return savedSeconds;
+    }
+
+    // Preserve statistics saved by older versions, which only stored full sessions.
+    const completedSessions = Number(localStorage.getItem("completedTimerSessions")) || 0;
+    const migratedSeconds = completedSessions * timerDurationSeconds;
+
+    localStorage.setItem(totalPracticeSecondsKey, String(migratedSeconds));
+
+    return migratedSeconds;
+}
+
+
+function formatPracticeDuration(totalSeconds) {
+
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const parts = [];
+
+    if (hours > 0) {
+        parts.push(`${hours} 小时`);
+    }
+
+    if (minutes > 0 || hours === 0) {
+        parts.push(`${minutes} 分钟`);
+    }
+
+    if (seconds > 0) {
+        parts.push(`${seconds} 秒`);
+    }
+
+    return parts.join(" ");
+}
+
+
+function recordPracticeSecond() {
+
+    const totalPracticeSeconds = getTotalPracticeSeconds() + 1;
+
+    localStorage.setItem(totalPracticeSecondsKey, String(totalPracticeSeconds));
+    updatePracticeDuration();
 }
 
 
@@ -88,18 +198,24 @@ function updatePracticeProgress() {
 
 function startPracticeTimer() {
 
-    if (timerInterval !== null) {
+    if (timerState === "running") {
         return;
     }
+
+    prepareTimerSound();
 
     if (totalSeconds === 0) {
         totalSeconds = timerDurationSeconds;
         updateTimerDisplay();
     }
 
+    timerState = "running";
+    updateTimerButtonStates();
+
     timerInterval = setInterval(function () {
 
         totalSeconds--;
+        recordPracticeSecond();
 
         updateTimerDisplay();
 
@@ -108,8 +224,11 @@ function startPracticeTimer() {
             clearInterval(timerInterval);
 
             timerInterval = null;
+            timerState = "idle";
+            updateTimerButtonStates();
 
             recordCompletedTimer();
+            playTimerCompleteSound();
 
         }
 
@@ -126,27 +245,41 @@ startTimerButton.addEventListener("click", function () {
 
 pauseTimerButton.addEventListener("click", function () {
 
+    if (timerState !== "running") {
+        return;
+    }
+
     clearInterval(timerInterval);
 
     timerInterval = null;
+    timerState = "paused";
+    updateTimerButtonStates();
 
 });
 
 
-resetTimerButton.addEventListener("click", function () {
+function resetPracticeTimer() {
 
     clearInterval(timerInterval);
 
     timerInterval = null;
+    timerState = "idle";
+    updateTimerButtonStates();
 
     totalSeconds = timerDurationSeconds;
 
     updateTimerDisplay();
+}
 
+
+resetTimerButton.addEventListener("click", function () {
+
+    resetPracticeTimer();
 });
 
 
 updateTimerDisplay();
+updateTimerButtonStates();
 updatePracticeDuration();
 updatePracticeProgress();
 
@@ -396,17 +529,14 @@ setTimeout(function () {
 
 repeatPracticeButton.addEventListener("click", function () {
 
-    clearInterval(timerInterval);
-
-    timerInterval = null;
-
-    totalSeconds = timerDurationSeconds;
-
-    updateTimerDisplay();
-    startPracticeTimer();
+    if (timerState === "idle") {
+        resetPracticeTimer();
+        startPracticeTimer();
+    } else if (timerState === "paused") {
+        startPracticeTimer();
+    }
 
     modalVideo.pause();
-    practiceModal.classList.remove("show");
     document.querySelector(".timer-section").scrollIntoView({ behavior: "smooth", block: "center" });
 
 });
