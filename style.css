@@ -1,0 +1,793 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #faf8f5;
+    color: #2f2b27;
+    line-height: 1.7;
+}
+
+
+.container {
+    width: min(1100px, 90%);
+    margin: 0 auto;
+}
+
+
+/* =========================
+   Hero
+========================= */
+
+.hero {
+    padding: 90px 0 80px;
+    text-align: center;
+    background: #f3ebe2;
+}
+
+
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 22px;
+    border-radius: 30px;
+    background: #ffffff;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+
+.hero h1 {
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+
+.subtitle {
+    max-width: 560px;
+    margin: 0 auto 32px;
+    font-size: 18px;
+    color: #6c625b;
+}
+
+
+/* =========================
+   Main Button
+========================= */
+
+.main-button {
+    border: none;
+    padding: 15px 28px;
+    border-radius: 12px;
+    background: #3b3631;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+.main-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+#encouragementMessage {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+
+/* =========================
+   Timer
+========================= */
+
+.timer-section {
+    margin-top: 70px;
+    padding: 45px 30px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #eee7df;
+    border-radius: 24px;
+}
+
+
+.timer-section h2 {
+    margin-bottom: 25px;
+    font-size: 30px;
+}
+
+
+.timer {
+    margin-bottom: 25px;
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+
+.timer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+.timer-button {
+    border: none;
+    padding: 11px 22px;
+    border-radius: 10px;
+    background: #3b3631;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+
+.timer-button:hover {
+    transform: translateY(-2px);
+}
+
+
+.timer-button.secondary {
+    background: #eee7df;
+    color: #3b3631;
+}
+
+
+.timer-button.secondary:hover {
+    background: #e2d9cf;
+}
+
+
+.practice-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    max-width: 620px;
+    margin: 32px auto 0;
+    text-align: left;
+}
+
+
+.practice-stat {
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: #faf8f5;
+}
+
+
+.practice-stat-label,
+.practice-stat-detail {
+    display: block;
+    color: #716963;
+    font-size: 13px;
+}
+
+
+.practice-stat strong {
+    display: block;
+    margin: 4px 0;
+    color: #3b3631;
+    font-size: 24px;
+}
+
+
+.progress-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+
+.progress-heading strong {
+    margin: 0;
+}
+
+
+.progress-track {
+    height: 10px;
+    margin: 10px 0 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e8ded4;
+}
+
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: #a27d5c;
+    transition: width 0.25s ease;
+}
+
+
+/* =========================
+   Introduction
+========================= */
+
+.intro {
+    max-width: 650px;
+    padding: 90px 0 45px;
+}
+
+
+.section-label {
+    margin-bottom: 12px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #9a7b62;
+}
+
+
+.intro h2 {
+    margin-bottom: 16px;
+    font-size: 36px;
+    line-height: 1.3;
+}
+
+
+.intro p:last-child {
+    color: #716963;
+}
+
+
+/* =========================
+   Practice Cards
+========================= */
+
+.practice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+.practice-card {
+    padding: 28px;
+    background: white;
+    border: 1px solid #eee7df;
+    border-radius: 18px;
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+
+.practice-card:hover {
+    transform: translateY(-5px);
+    background: #f5eee7;
+    box-shadow: 0 12px 30px rgba(70, 55, 40, 0.12);
+}
+
+
+.day {
+    margin-bottom: 16px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: #a27d5c;
+}
+
+
+.practice-card h3 {
+    margin-bottom: 10px;
+    font-size: 21px;
+}
+
+
+.practice-card p {
+    margin-bottom: 20px;
+    color: #716963;
+    font-size: 15px;
+}
+
+
+.practice-card span {
+    font-size: 13px;
+    color: #998d84;
+}
+
+
+/* =========================
+   Modal
+========================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(47, 43, 39, 0.55);
+
+    backdrop-filter: blur(4px);
+}
+
+
+.modal.show {
+    display: flex;
+}
+
+
+.modal-content {
+    position: relative;
+
+    width: min(600px, 100%);
+    min-width: 320px;
+    max-height: 90vh;
+    max-width: calc(100vw - 40px);
+
+    overflow: auto;
+    resize: both;
+    box-sizing: border-box;
+
+    padding: 45px;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+
+    animation: modalAppear 0.25s ease;
+}
+
+
+@keyframes modalAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+.close-button {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #eee7df;
+
+    color: #3b3631;
+
+    font-size: 24px;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+
+.close-button:hover {
+    background: #e2d9cf;
+}
+
+
+.maximize-button {
+    position: absolute;
+    top: 18px;
+    right: 64px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #eee7df;
+    color: #3b3631;
+
+    font-size: 20px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+
+.maximize-button:hover {
+    background: #e2d9cf;
+}
+
+
+.modal-content.is-maximized {
+    width: calc(100vw - 32px);
+    height: calc(100vh - 32px);
+    max-width: none;
+    max-height: none;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+    column-gap: clamp(24px, 4vw, 56px);
+    align-content: center;
+
+    padding: clamp(20px, 3vw, 40px) clamp(28px, 5vw, 72px);
+
+    overflow: hidden;
+    resize: none;
+}
+
+
+.modal-content.is-maximized > .modal-day,
+.modal-content.is-maximized > h2,
+.modal-content.is-maximized > .modal-section,
+.modal-content.is-maximized > #encouragementMessage,
+.modal-content.is-maximized > .modal-practice-actions {
+    grid-column: 1;
+}
+
+
+.modal-content.is-maximized > h2 {
+    margin-bottom: clamp(12px, 2vh, 24px);
+    font-size: clamp(24px, 2.5vw, 34px);
+}
+
+
+.modal-content.is-maximized > .modal-section {
+    margin-bottom: clamp(8px, 1.5vh, 18px);
+}
+
+
+.modal-content.is-maximized > .modal-section h3 {
+    font-size: clamp(14px, 1.4vw, 16px);
+}
+
+
+.modal-content.is-maximized > .modal-section p {
+    font-size: clamp(13px, 1.3vw, 16px);
+    line-height: 1.45;
+}
+
+
+.modal-content.is-maximized > .video-placeholder {
+    grid-column: 2;
+    grid-row: 1 / span 8;
+    align-self: center;
+
+    margin-top: 0;
+    padding: clamp(16px, 2vw, 28px);
+}
+
+
+.modal-content.is-maximized .video-placeholder video {
+    height: clamp(160px, 42vh, 360px);
+}
+
+
+.modal-day {
+    margin-bottom: 8px;
+
+    color: #a27d5c;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.modal-content > h2 {
+    margin-bottom: 30px;
+
+    font-size: 34px;
+
+    line-height: 1.3;
+}
+
+
+.modal-section {
+    margin-bottom: 24px;
+}
+
+
+.modal-section h3 {
+    margin-bottom: 7px;
+
+    font-size: 16px;
+}
+
+
+.modal-section p {
+    color: #716963;
+}
+
+
+/* =========================
+   Video Placeholder
+========================= */
+
+.video-placeholder {
+    margin-top: 30px;
+    padding: 35px 20px;
+
+    text-align: center;
+
+    border: 2px dashed #ded4ca;
+    border-radius: 16px;
+
+    background: #faf8f5;
+}
+
+
+.video-icon {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    margin-bottom: 12px;
+
+    border-radius: 50%;
+
+    background: #eee5db;
+
+    font-size: 18px;
+}
+
+
+.video-placeholder strong {
+    display: block;
+
+    margin-bottom: 5px;
+}
+
+
+.video-placeholder p {
+    color: #998d84;
+
+    font-size: 13px;
+}
+.video-placeholder video {
+    display: block;
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+    background: black;
+}
+
+/* =========================
+   Bottom Message
+========================= */
+
+.bottom-message {
+    margin: 100px 0;
+    padding: 60px 30px;
+    text-align: center;
+    background: #eee5db;
+    border-radius: 24px;
+}
+
+
+.quote {
+    font-family: Georgia, serif;
+    font-size: 60px;
+    line-height: 0.7;
+}
+
+
+.bottom-message h2 {
+    margin: 20px 0 8px;
+    font-size: 30px;
+}
+
+
+.bottom-message p {
+    color: #716963;
+}
+
+
+/* =========================
+   Footer
+========================= */
+
+footer {
+    padding: 30px;
+    text-align: center;
+    font-size: 13px;
+    color: #9a918a;
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 800px) {
+
+    .hero {
+        padding: 65px 0;
+    }
+
+    .practice-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .intro {
+        padding-top: 65px;
+    }
+
+    .modal-content {
+        min-width: 0;
+        resize: none;
+    }
+
+    .modal-content.is-maximized {
+        width: calc(100vw - 24px);
+        height: calc(100vh - 24px);
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 0;
+        padding: 52px 20px 18px;
+        overflow-y: auto;
+    }
+
+    .modal-content.is-maximized > .video-placeholder {
+        grid-column: 1;
+        grid-row: auto;
+        margin-top: 8px;
+    }
+
+    .modal-content.is-maximized .video-placeholder video {
+        height: min(28vh, 220px);
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .hero h1 {
+        letter-spacing: -1px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .practice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .intro h2 {
+        font-size: 29px;
+    }
+
+    .timer {
+        font-size: 50px;
+    }
+
+    .practice-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        padding: 35px 24px;
+    }
+
+    .modal-content > h2 {
+        font-size: 28px;
+    }
+
+    .bottom-message {
+        margin: 70px 0;
+        padding: 45px 20px;
+    }
+
+}
+.video-coming-soon {
+    margin-top: 30px;
+    padding: 35px 20px;
+
+    text-align: center;
+
+    border: 2px dashed #ded4ca;
+    border-radius: 16px;
+
+    background: #faf8f5;
+}
+
+.video-coming-soon strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.video-coming-soon p {
+    color: #998d84;
+    font-size: 13px;
+}
+.complete-button {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 25px;
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #3b3631;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.complete-button:hover {
+    opacity: 0.9;
+}
+
+
+.modal-practice-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+
+.modal-practice-actions .complete-button {
+    width: auto;
+    flex: 1;
+    margin-top: 0;
+}
+
+
+.repeat-button {
+    border: 1px solid #d9c9ba;
+    border-radius: 10px;
+    padding: 14px 20px;
+    background: #fff;
+    color: #6c5140;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.repeat-button:hover {
+    background: #faf3ec;
+}
+
+.completed-page {
+    filter: brightness(0.85);
+}
