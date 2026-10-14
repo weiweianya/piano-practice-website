@@ -1,22 +1,63 @@
 // =========================
-// Today Practice Button
+// Today Practice Button & Confirm Modal
 // =========================
 
 const startButton = document.getElementById("startButton");
 const message = document.getElementById("message");
 
+const confirmModal = document.getElementById("confirmModal");
+const confirmTitle = document.getElementById("confirmTitle");
+const confirmSubtitle = document.getElementById("confirmSubtitle");
+const confirmYesButton = document.getElementById("confirmYesButton");
+const confirmNoButton = document.getElementById("confirmNoButton");
+
+let pendingPracticeDay = null;
+
+function closeConfirmModal() {
+    confirmModal.classList.remove("show");
+    pendingPracticeDay = null;
+}
+
 startButton.addEventListener("click", function () {
+    const todayDay = getTodayDay();
+    pendingPracticeDay = todayDay;
+
+    const data = practiceData[todayDay];
+    confirmTitle.textContent = `要练习 Day ${todayDay} 吗？`;
+    confirmSubtitle.textContent = data ? data.title : "";
+
+    confirmModal.classList.add("show");
+});
+
+confirmYesButton.addEventListener("click", function () {
+    const dayToPractice = pendingPracticeDay || getTodayDay();
+    closeConfirmModal();
 
     message.textContent = "🎵 很好！今天的 20 分钟，从现在开始。";
-
     startButton.textContent = "今天已经开始练习 ✓";
 
-    const todayCard = document.querySelector(".practice-card.is-today");
+    const targetCard = document.querySelector(`.practice-card[data-day="${dayToPractice}"]`) ||
+                       document.querySelector(".practice-card.is-today");
 
-    if (todayCard) {
-        todayCard.click();
+    if (targetCard) {
+        targetCard.click();
     }
+});
 
+confirmNoButton.addEventListener("click", function () {
+    closeConfirmModal();
+});
+
+confirmModal.addEventListener("click", function (event) {
+    if (event.target === confirmModal) {
+        closeConfirmModal();
+    }
+});
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && confirmModal.classList.contains("show")) {
+        closeConfirmModal();
+    }
 });
 
 
