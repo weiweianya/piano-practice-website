@@ -12,6 +12,14 @@ const confirmYesButton = document.getElementById("confirmYesButton");
 const confirmNoButton = document.getElementById("confirmNoButton");
 
 let pendingPracticeDay = null;
+let hasStartedTodayPractice = false;
+
+function markPracticeStarted() {
+    hasStartedTodayPractice = true;
+    startButton.textContent = "今天已经开始练习 ✓";
+    startButton.classList.add("is-started");
+    message.textContent = "🎵 很好！今天的 20 分钟，从现在开始。";
+}
 
 function closeConfirmModal() {
     confirmModal.classList.remove("show");
@@ -19,6 +27,10 @@ function closeConfirmModal() {
 }
 
 startButton.addEventListener("click", function () {
+    if (hasStartedTodayPractice) {
+        return;
+    }
+
     const todayDay = getTodayDay();
     pendingPracticeDay = todayDay;
 
@@ -33,8 +45,7 @@ confirmYesButton.addEventListener("click", function () {
     const dayToPractice = pendingPracticeDay || getTodayDay();
     closeConfirmModal();
 
-    message.textContent = "🎵 很好！今天的 20 分钟，从现在开始。";
-    startButton.textContent = "今天已经开始练习 ✓";
+    markPracticeStarted();
 
     const targetCard = document.querySelector(`.practice-card[data-day="${dayToPractice}"]`) ||
                        document.querySelector(".practice-card.is-today");
@@ -108,6 +119,7 @@ function updateTimerButtonStates() {
 
     startTimerButton.classList.toggle("is-active", timerState === "running");
     pauseTimerButton.classList.toggle("is-active", timerState === "paused");
+    timerDisplay.classList.toggle("is-running", timerState === "running");
 }
 
 
@@ -471,6 +483,8 @@ practiceCards.forEach(function (card) {
 
     card.addEventListener("click", function () {
 
+        markPracticeStarted();
+
         const day = card.dataset.day;
 
         const data = practiceData[day];
@@ -585,7 +599,6 @@ repeatPracticeButton.addEventListener("click", function () {
     }
 
     modalVideo.pause();
-    document.querySelector(".timer-section").scrollIntoView({ behavior: "smooth", block: "center" });
 
 });
 
@@ -603,6 +616,9 @@ closeModalButton.addEventListener("click", function () {
 maximizeModalButton.addEventListener("click", function () {
 
     const isMaximized = modalContent.classList.toggle("is-maximized");
+    practiceModal.classList.remove("is-window-positioned");
+    modalContent.style.left = "";
+    modalContent.style.top = "";
 
     maximizeModalButton.textContent = isMaximized ? "↙" : "⛶";
     maximizeModalButton.setAttribute("aria-label", isMaximized ? "Restore window" : "Maximize window");
@@ -610,18 +626,63 @@ maximizeModalButton.addEventListener("click", function () {
 
 });
 
+let modalDrag = null;
 
-// Close modal by clicking background
-
-practiceModal.addEventListener("click", function (event) {
-
-    if (event.target === practiceModal) {
-
-        modalVideo.pause();
-        practiceModal.classList.remove("show");
-
+modalContent.addEventListener("mousedown", function (event) {
+    if (
+        event.button !== 0 ||
+        !window.matchMedia("(pointer: fine)").matches ||
+        modalContent.classList.contains("is-maximized")
+    ) {
+        return;
     }
 
+    const modalRect = modalContent.getBoundingClientRect();
+    const isInDragArea = event.clientY - modalRect.top <= 60;
+    const isInteractiveControl = event.target.closest(
+        "button, a, input, select, textarea, video, audio, [contenteditable='true']"
+    );
+
+    if (!isInDragArea || isInteractiveControl) {
+        return;
+    }
+
+    modalDrag = {
+        offsetX: event.clientX - modalRect.left,
+        offsetY: event.clientY - modalRect.top
+    };
+    practiceModal.classList.add("is-window-positioned");
+    modalContent.classList.add("is-window-dragging");
+    modalContent.style.left = modalRect.left + "px";
+    modalContent.style.top = modalRect.top + "px";
+    event.preventDefault();
+});
+
+document.addEventListener("mousemove", function (event) {
+    if (modalDrag === null || !practiceModal.classList.contains("show")) {
+        return;
+    }
+
+    const modalRect = modalContent.getBoundingClientRect();
+    const titleRect = modalTitle.getBoundingClientRect();
+    const closeButtonRect = closeModalButton.getBoundingClientRect();
+    const minimumLeft = Math.min(0, 160 - modalRect.width);
+    const maximumLeft = Math.max(minimumLeft, window.innerWidth - modalRect.width + 12);
+    const visibleHeaderHeight = Math.max(
+        titleRect.bottom - modalRect.top,
+        closeButtonRect.bottom - modalRect.top
+    );
+    const maximumTop = Math.max(0, window.innerHeight - visibleHeaderHeight);
+    const left = Math.min(maximumLeft, Math.max(minimumLeft, event.clientX - modalDrag.offsetX));
+    const top = Math.min(maximumTop, Math.max(0, event.clientY - modalDrag.offsetY));
+
+    modalContent.style.left = left + "px";
+    modalContent.style.top = top + "px";
+});
+
+document.addEventListener("mouseup", function () {
+    modalDrag = null;
+    modalContent.classList.remove("is-window-dragging");
 });
 
 const completionStatuses = document.querySelectorAll(".completion-status");
