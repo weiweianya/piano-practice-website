@@ -322,6 +322,26 @@ button:focus-visible,
     justify-content: space-between;
 }
 
+.today-panel #todayTime {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.today-panel .main-button {
+    align-self: flex-start;
+    min-height: 48px;
+    padding: 0 22px;
+    border: 2px solid var(--accent-strong);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.today-panel .main-button:focus-visible {
+    outline: 3px solid var(--accent-strong);
+    outline-offset: 3px;
+}
+
 .timer-section {
     display: flex;
     flex-direction: column;
