@@ -11,6 +11,12 @@ startButton.addEventListener("click", function () {
 
     startButton.textContent = "今天已经开始练习 ✓";
 
+    const todayCard = document.querySelector(".practice-card.is-today");
+
+    if (todayCard) {
+        todayCard.click();
+    }
+
 });
 
 
@@ -513,6 +519,7 @@ completePracticeButton.addEventListener("click", function () {
   currentCard.classList.add("completed-page");
   currentCard.querySelector(".completion-status").textContent = "✓ 已完成";
   updatePracticeProgress();
+  updateTodayPanel();
 
   const randomIndex = Math.floor(Math.random() * encouragements.length);
 
@@ -595,6 +602,40 @@ completionStatuses.forEach(function (status) {
 
 });
 
+function getTodayDay() {
+
+    for (let day = 1; day <= 7; day += 1) {
+
+        if (localStorage.getItem("practiceCompleted" + day) !== "true") {
+            return String(day);
+        }
+
+    }
+
+    return "7";
+}
+
+
+function updateTodayPanel() {
+
+    const todayDay = getTodayDay();
+    const data = practiceData[todayDay];
+    const completed = localStorage.getItem("practiceCompleted" + todayDay) === "true";
+    const todayPanel = document.querySelector(".today-panel");
+
+    document.getElementById("todayLabel").textContent = "今天 · Day " + todayDay;
+    document.getElementById("todayTitle").textContent = data.title;
+    document.getElementById("todayTime").textContent = "今日练习 · " + data.time;
+    todayPanel.classList.toggle("is-complete", completed);
+
+    practiceCards.forEach(function (card) {
+        card.classList.toggle("is-today", card.dataset.day === todayDay);
+    });
+}
+
+updateTodayPanel();
+
+
 window.addEventListener("load", function () {
 
     practiceCards.forEach(function (card) {
@@ -605,5 +646,6 @@ window.addEventListener("load", function () {
         }
     });
 
+    updateTodayPanel();
 
 });

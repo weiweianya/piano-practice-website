@@ -9,192 +9,125 @@
 
 <body>
 
-
-    <!-- Hero -->
-    <header class="hero">
-        <div class="container">
-
+    <header class="site-header">
+        <div class="container header-inner">
             <div class="badge">🎹 Piano Starter</div>
-
-            <h1>7天钢琴练习计划</h1>
-
-            <p class="subtitle">
-                每天 20 分钟，让练琴变成一种轻松而持续的习惯。
-            </p>
-
-            <button id="startButton" class="main-button">
-                开始今天的练习 →
-            </button>
-
-            <p id="message" class="encouragement"></p>
-
+            <h1>钢琴初学者 · 7天练习计划</h1>
         </div>
     </header>
 
 
     <main class="container">
 
-        <!-- Timer -->
-        <section class="timer-section">
+        <section class="today-panel" aria-labelledby="todayTitle">
+            <p class="today-kicker" id="todayLabel">今天 · Day 1</p>
 
-            <div id="timer" class="timer">
-                20:00
-            </div>
+            <h2 id="todayTitle">认识你的钢琴</h2>
 
-            <div class="timer-buttons">
-
-                <button id="startTimer" class="timer-button">
-                    Start
-                </button>
-
-                <button id="pauseTimer" class="timer-button secondary">
-                    Pause
-                </button>
-
-                <button id="resetTimer" class="timer-button secondary">
-                    Reset
-                </button>
-
-            </div>
-
-            <div class="practice-stats" aria-label="练习统计">
-                <div class="practice-stat">
-                    <span class="practice-stat-label">累计练习时长</span>
-                    <strong id="totalPracticeDuration">0 分钟</strong>
-                    <span id="completedTimerCount" class="practice-stat-detail">已完成 0 次倒计时</span>
-                </div>
-
-                <div class="practice-stat progress-stat">
-                    <div class="progress-heading">
-                        <span class="practice-stat-label">练习进度</span>
-                        <strong id="practiceProgress">0/7</strong>
-                    </div>
-                    <div class="progress-track" role="progressbar" aria-label="七天练习进度" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0">
-                        <div id="practiceProgressBar" class="progress-bar"></div>
-                    </div>
-                    <span id="practiceProgressDetail" class="practice-stat-detail">已完成 0 天</span>
-                </div>
-            </div>
-
-        </section>
-
-
-        <!-- Introduction -->
-        <section class="intro">
-
-            <p>
-                不需要一次练很久，也不需要追求完美。
-                每天完成一个小目标，你会慢慢发现自己真的在进步。
+            <p class="today-meta">
+                <span id="todayTime">今日练习 · 20 分钟</span>
+                <span id="todayDone" class="today-done">✓ 今天已完成</span>
             </p>
 
+            <button id="startButton" class="main-button" type="button">
+                开始今天的练习
+            </button>
+
+            <p id="message" class="encouragement"></p>
         </section>
 
 
-        <!-- Practice Cards -->
-        <section class="practice-grid">
+        <section class="week-section" aria-labelledby="weekHeading">
+            <div class="week-heading">
+                <div>
+                    <h2 id="weekHeading">本周练习</h2>
+                    <p id="practiceProgressDetail" class="week-detail">已完成 0 天</p>
+                </div>
+                <strong id="practiceProgress">0/7</strong>
+            </div>
 
-            <article class="practice-card" data-day="1">
-                <div class="day">DAY 01</div>
-                <h3>认识你的钢琴</h3>
-                <p>
-                    熟悉琴键位置，找到中央 C，并进行简单的手指活动。
-                </p>
-                <span>约 15–20 分钟</span>
-            
-            <span class="completion-status" data-completion-day="1"></span>
-
-            
-            </article>
-
-            <article class="practice-card" data-day="2">
-                <div class="day">DAY 02</div>
-                <h3>手指独立练习</h3>
-                <p>
-                    用简单的五指练习，让每根手指逐渐找到自己的节奏。
-                </p>
-                <span>约 20 分钟</span>
-                <span class="completion-status" data-completion-day="2"></span>
-            </article>
+            <div class="progress-track" role="progressbar" aria-label="七天练习进度" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0">
+                <div id="practiceProgressBar" class="progress-bar"></div>
+            </div>
 
 
-            <article class="practice-card" data-day="3">
-                <div class="day">DAY 03</div>
-                <h3>认识节奏</h3>
-                <p>
-                    练习基本节拍，尝试用稳定的速度弹奏简单旋律。
-                </p>
-                <span>约 20 分钟</span>
-                <span class="completion-status" data-completion-day="3"></span>
-            </article>
+            <section class="practice-grid">
 
+                <article class="practice-card" data-day="1">
+                    <span class="completion-status" data-completion-day="1"></span>
+                    <div class="card-copy">
+                        <div class="day">Day 1</div>
+                        <h3>认识你的钢琴</h3>
+                    </div>
+                    <span class="card-time">15–20 分钟</span>
+                </article>
 
-            <article class="practice-card" data-day="4">
-                <div class="day">DAY 04</div>
-                <h3>学习一小段旋律</h3>
-                <p>
-                    选择一首简单的曲子，只专注学习其中的一小段。
-                </p>
-                <span>约 20 分钟</span>
-                <span class="completion-status" data-completion-day="4"></span>
-            </article>
+                <article class="practice-card" data-day="2">
+                    <span class="completion-status" data-completion-day="2"></span>
+                    <div class="card-copy">
+                        <div class="day">Day 2</div>
+                        <h3>手指独立练习</h3>
+                    </div>
+                    <span class="card-time">20 分钟</span>
+                </article>
 
+                <article class="practice-card" data-day="3">
+                    <span class="completion-status" data-completion-day="3"></span>
+                    <div class="card-copy">
+                        <div class="day">Day 3</div>
+                        <h3>认识节奏</h3>
+                    </div>
+                    <span class="card-time">20 分钟</span>
+                </article>
 
-            <article class="practice-card" data-day="5">
-                <div class="day">DAY 05</div>
-                <h3>慢慢弹，弹准确</h3>
-                <p>
-                    降低速度，注意每一个音符，让双手更加协调。
-                </p>
-                <span>约 20 分钟</span>
-                <span class="completion-status" data-completion-day="5"></span>
-            </article>
+                <article class="practice-card" data-day="4">
+                    <span class="completion-status" data-completion-day="4"></span>
+                    <div class="card-copy">
+                        <div class="day">Day 4</div>
+                        <h3>学习一小段旋律</h3>
+                    </div>
+                    <span class="card-time">20 分钟</span>
+                </article>
 
+                <article class="practice-card" data-day="5">
+                    <span class="completion-status" data-completion-day="5"></span>
+                    <div class="card-copy">
+                        <div class="day">Day 5</div>
+                        <h3>慢慢弹，弹准确</h3>
+                    </div>
+                    <span class="card-time">20 分钟</span>
+                </article>
 
-            <article class="practice-card" data-day="6">
-                <div class="day">DAY 06</div>
-                <h3>完整弹一遍</h3>
-                <p>
-                    把前几天练习的内容连接起来，不追求完美，只求完成。
-                </p>
-                <span>约 20 分钟</span>
-                <span class="completion-status" data-completion-day="6"></span>
-            </article>
+                <article class="practice-card" data-day="6">
+                    <span class="completion-status" data-completion-day="6"></span>
+                    <div class="card-copy">
+                        <div class="day">Day 6</div>
+                        <h3>完整弹一遍</h3>
+                    </div>
+                    <span class="card-time">20 分钟</span>
+                </article>
 
+                <article class="practice-card" data-day="7">
+                    <span class="completion-status" data-completion-day="7"></span>
+                    <div class="card-copy">
+                        <div class="day">Day 7</div>
+                        <h3>回顾你的进步</h3>
+                    </div>
+                    <span class="card-time">20 分钟</span>
+                </article>
 
-            <article class="practice-card" data-day="7">
-                <div class="day">DAY 07</div>
-                <h3>回顾你的进步</h3>
-                <p>
-                    重新弹奏这一周的内容，记录自己最明显的一个进步。
-                </p>
-                <span>约 20 分钟</span>
-                <span class="completion-status" data-completion-day="7"></span>
-            </article>
-
+            </section>
         </section>
 
 
-        <!-- Bottom Message -->
         <section class="bottom-message">
-
-            <div class="quote">
-        
-            </div>
-
-            <h2>
-                不用一次成为钢琴家。
-            </h2>
-
-            <p>
-                今天只需要比昨天多弹几分钟。
-            </p>
-
+            <h2>不用一次成为钢琴家。</h2>
+            <p>今天只需要比昨天多弹几分钟。</p>
         </section>
-    
+
     </main>
 
 
-    <!-- Modal -->
     <div id="practiceModal" class="modal">
 
         <div class="modal-content">
@@ -203,95 +136,82 @@
                 ⛶
             </button>
 
-            <button id="closeModal" class="close-button">
+            <button id="closeModal" class="close-button" type="button">
                 ×
             </button>
 
-            <p id="modalDay" class="modal-day">
-                DAY 01
-            </p>
+            <p id="modalDay" class="modal-day">DAY 01</p>
 
-            <h2 id="modalTitle">
-                认识你的钢琴
-            </h2>
-
-            
-
+            <h2 id="modalTitle">认识你的钢琴</h2>
 
             <div class="modal-section">
+                <h3>今天练什么</h3>
+                <p id="modalPractice">找到中央 C，并熟悉钢琴键盘的位置。</p>
+            </div>
 
-                <h3>🎹 今天练什么</h3>
+            <div class="modal-section">
+                <h3>建议练习时间</h3>
+                <p id="modalTime">15–20 分钟</p>
+            </div>
 
-                <p id="modalPractice">
-                    找到中央 C，并熟悉钢琴键盘的位置。
-                </p>
+            <div class="modal-section">
+                <h3>练习步骤</h3>
+                <p id="modalSteps">先找到中央 C，然后进行简单的五指练习。</p>
+            </div>
 
+            <div class="modal-section">
+                <h3>小提示</h3>
+                <p id="modalTip">不需要追求速度，先熟悉键盘的位置。</p>
             </div>
 
 
-            <div class="modal-section">
+            <section class="timer-section" aria-label="练习计时器">
+                <div id="timer" class="timer">20:00</div>
 
-                <h3>⏱️ 建议练习时间</h3>
+                <div class="timer-buttons">
+                    <button id="startTimer" class="timer-button" type="button">Start</button>
+                    <button id="pauseTimer" class="timer-button secondary" type="button">Pause</button>
+                    <button id="resetTimer" class="timer-button secondary" type="button">Reset</button>
+                </div>
 
-                <p id="modalTime">
-                    15–20 分钟
-                </p>
-
-            </div>
-
-
-            <div class="modal-section">
-
-                <h3>📝 练习步骤</h3>
-
-                <p id="modalSteps">
-                    先找到中央 C，然后进行简单的五指练习。
-                </p>
-
-            </div>
-
-
-            <div class="modal-section">
-
-                <h3>💡 小提示</h3>
-
-                <p id="modalTip">
-                    不需要追求速度，先熟悉键盘的位置。
-                </p>
-
-            </div>
+                <div class="practice-stats" aria-label="练习统计">
+                    <div class="practice-stat">
+                        <span class="practice-stat-label">累计练习时长</span>
+                        <strong id="totalPracticeDuration">0 分钟</strong>
+                        <span id="completedTimerCount" class="practice-stat-detail">已完成 0 次倒计时</span>
+                    </div>
+                </div>
+            </section>
 
 
             <div class="video-placeholder">
+                <video
+                    id="modalVideo"
+                    controls
+                    muted
+                    playsinline
+                    width="100%"
+                >
+                    <source id="modalVideoSource" src="./videos/day1.mp4" type="video/mp4">
+                </video>
 
-   <video
-    id="modalVideo"
-    controls
-    muted
-    playsinline
-    width="100%"
->
-    <source id="modalVideoSource" src="./videos/day1.mp4" type="video/mp4">
-</video>
+                <div id="videoComingSoon" class="video-coming-soon">
+                    <div class="video-icon">🎬</div>
+                    <strong>教学视频即将上线</strong>
+                    <p>先按照上面的练习步骤完成今天的练习吧。</p>
+                </div>
 
-<div id="videoComingSoon" class="video-coming-soon">
-    <div class="video-icon">🎬</div>
+                <div id="encouragementMessage"></div>
 
-    <strong>教学视频即将上线</strong>
-
-    <p>先按照上面的练习步骤完成今天的练习吧。</p>
-</div>
- <div id="encouragementMessage"></div> 
-<div class="modal-practice-actions">
-    <button id="completePracticeButton" class="complete-button">
-        ✓ 完成今天的练习
-    </button>
-    <button id="repeatPracticeButton" class="repeat-button" type="button">
-        再次练习
-    </button>
-</div>
-
-          </div>
+                <div class="modal-practice-actions">
+                    <button id="completePracticeButton" class="complete-button" type="button">
+                        ✓ 完成今天的练习
+                    </button>
+                    <button id="repeatPracticeButton" class="repeat-button" type="button">
+                        再次练习
+                    </button>
+                </div>
+            </div>
 
         </div>
 
@@ -299,9 +219,7 @@
 
 
     <footer>
-        <p>
-            Made for adult piano beginners · 2026
-        </p>
+        <p>Made for adult piano beginners · 2026</p>
     </footer>
 
 
