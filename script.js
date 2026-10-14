@@ -53,6 +53,8 @@ confirmYesButton.addEventListener("click", function () {
     if (targetCard) {
         targetCard.click();
     }
+
+    startPracticeTimer();
 });
 
 confirmNoButton.addEventListener("click", function () {
