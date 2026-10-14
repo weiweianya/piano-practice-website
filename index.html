@@ -19,22 +19,44 @@
 
     <main class="container">
 
-        <section class="today-panel" aria-labelledby="todayTitle">
-            <p class="today-kicker" id="todayLabel">今天 · Day 1</p>
+        <div class="today-hero-layout">
+            <section class="today-panel" aria-labelledby="todayTitle">
+                <p class="today-kicker" id="todayLabel">今天 · Day 1</p>
 
-            <h2 id="todayTitle">认识你的钢琴</h2>
+                <h2 id="todayTitle">认识你的钢琴</h2>
 
-            <p class="today-meta">
-                <span id="todayTime">今日练习 · 20 分钟</span>
-                <span id="todayDone" class="today-done">✓ 今天已完成</span>
-            </p>
+                <p class="today-meta">
+                    <span id="todayTime">今日练习 · 20 分钟</span>
+                    <span id="todayDone" class="today-done">✓ 今天已完成</span>
+                </p>
 
-            <button id="startButton" class="main-button" type="button">
-                开始今天的练习
-            </button>
+                <button id="startButton" class="main-button" type="button">
+                    开始今天的练习
+                </button>
 
-            <p id="message" class="encouragement"></p>
-        </section>
+                <p id="message" class="encouragement"></p>
+            </section>
+
+            <section class="timer-section" aria-label="练习计时器">
+                <div class="timer-dial-wrapper">
+                    <div id="timer" class="timer">20:00</div>
+                </div>
+
+                <div class="timer-buttons">
+                    <button id="startTimer" class="timer-button" type="button">开始练习</button>
+                    <button id="pauseTimer" class="timer-button secondary" type="button">暂停</button>
+                    <button id="resetTimer" class="timer-button secondary" type="button">重新开始</button>
+                </div>
+
+                <div class="practice-stats" aria-label="练习统计">
+                    <div class="practice-stat">
+                        <span class="practice-stat-label">累计练习时长</span>
+                        <strong id="totalPracticeDuration">0 分钟</strong>
+                        <span id="completedTimerCount" class="practice-stat-detail">已完成 0 次倒计时</span>
+                    </div>
+                </div>
+            </section>
+        </div>
 
 
         <section class="week-section" aria-labelledby="weekHeading">
@@ -163,25 +185,6 @@
                 <h3>小提示</h3>
                 <p id="modalTip">不需要追求速度，先熟悉键盘的位置。</p>
             </div>
-
-
-            <section class="timer-section" aria-label="练习计时器">
-                <div id="timer" class="timer">20:00</div>
-
-                <div class="timer-buttons">
-                    <button id="startTimer" class="timer-button" type="button">Start</button>
-                    <button id="pauseTimer" class="timer-button secondary" type="button">Pause</button>
-                    <button id="resetTimer" class="timer-button secondary" type="button">Reset</button>
-                </div>
-
-                <div class="practice-stats" aria-label="练习统计">
-                    <div class="practice-stat">
-                        <span class="practice-stat-label">累计练习时长</span>
-                        <strong id="totalPracticeDuration">0 分钟</strong>
-                        <span id="completedTimerCount" class="practice-stat-detail">已完成 0 次倒计时</span>
-                    </div>
-                </div>
-            </section>
 
 
             <div class="video-placeholder">
