@@ -465,7 +465,8 @@ const practiceData = {
         time: "20 分钟",
         steps: "完整弹奏一次 → 回想 Day 1 的状态 → 找出自己最大的进步 → 写下一句话记录。",
         tip: "记录进步会让你更容易坚持下一周的练习。",
-        video: "videos/day7.mp4"
+        video: "videos/day7.mp4",
+        hasVideo: true
     }
 
 };
